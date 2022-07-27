@@ -4,19 +4,16 @@ import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
-import { createUser, createUserThunk } from "redux/auth";
-import { useAddUserMutation } from "redux/slice";
+import { createUserThunk } from "redux/auth";
 import style from "../Register/Register.module.css";
 
 export const Register = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     email: "",
     name: "",
     password: "",
   });
-
-  // const [addUser] = useAddUserMutation();
 
   const onChange = useCallback(
     (e) => {
@@ -28,16 +25,14 @@ export const Register = () => {
   const onSubmite = useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(createUserThunk(form))
-      
-      // addUser(form);
+      dispatch(createUserThunk(form));
     },
     [dispatch, form]
   );
 
   return (
     <>
-      <Container  >
+      <Container>
         <Form onSubmit={onSubmite} className={style.Form}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>

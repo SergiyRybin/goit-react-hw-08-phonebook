@@ -3,10 +3,9 @@ import { useState } from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUserThunk } from "redux/auth";
-// import { loginUser } from "redux/slice";
-import { useLoginUserMutation } from "redux/slice";
+// import { useLoginUserMutation } from "redux/slice";
 
 export const Login = () => {
   const dispatch = useDispatch()
@@ -14,13 +13,6 @@ export const Login = () => {
     email: "",
     password: "",
   });
-  // const [requestId, setRequestId] = useState("");
-
-  // const data= useSelector(state=> state.users.mutations)
-  // console.log(data[requestId]);
-
-
-  // const [loginUser] = useLoginUserMutation();
 
   const onChange = useCallback(
     (e) => {
@@ -33,9 +25,9 @@ export const Login = () => {
     (e) => {
       e.preventDefault();
      dispatch(loginUserThunk(form))
-      // console.log( loginUser(form));
+     
     },
-    // [form, loginUser]
+    [dispatch, form]
   );
 
   return (
