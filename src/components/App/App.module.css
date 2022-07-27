@@ -1,0 +1,10 @@
+.NavBar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  text-decoration: none;
+}
+.NavBar li{
+  margin-right: 20px;
+}

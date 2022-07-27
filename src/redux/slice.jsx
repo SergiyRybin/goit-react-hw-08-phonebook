@@ -33,57 +33,88 @@ const axiosBaseQuery =
     }
   };
 
-export const contactsApi = createApi({
-  reducerPath: "contacts",
-  baseQuery: axiosBaseQuery({
-    baseUrl: "https://62d82adc9c8b5185c7846b84.mockapi.io",
-  }),
-  tagTypes: ["Contacts"],
-  endpoints: (builder) => ({
-    getContacts: builder.query({
-      query: () => ({ url: "/contacts", method: "GET" }),
-      providesTags: ["Contacts"],
-    }),
-    addContact: builder.mutation({
-      query: (value) => ({
-        url: "/contacts",
-        method: "POST",
-        body: value,
-      }),
-      invalidatesTags: ["Contacts"],
-    }),
-    delContact: builder.mutation({
-      query: (id) => ({
-        url: `/contacts/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Contacts"],
-    }),
-  }),
-});
+// export const contactsApi = createApi({
+//   reducerPath: "contacts",
+//   baseQuery: axiosBaseQuery({
+//     baseUrl: "https://62d82adc9c8b5185c7846b84.mockapi.io",
+//   }),
+//   tagTypes: ["Contacts"],
+//   endpoints: (builder) => ({
+//     getContacts: builder.query({
+//       query: () => ({ url: "/contacts", method: "GET" }),
+//       providesTags: ["Contacts"],
+//     }),
+//     addContact: builder.mutation({
+//       query: (value) => ({
+//         url: "/contacts",
+//         method: "POST",
+//         data: value,
+//       }),
+//       invalidatesTags: ["Contacts"],
+//     }),
+//     delContact: builder.mutation({
+//       query: (id) => ({
+//         url: `/contacts/${id}`,
+//         method: "DELETE",
+//       }),
+//       invalidatesTags: ["Contacts"],
+//     }),
+//   }),
+// });
 
-export const {
-  useGetContactsQuery,
-  useAddContactMutation,
-  useDelContactMutation,
-} = contactsApi;
+// export const {
+//   useGetContactsQuery,
+//   useAddContactMutation,
+//   useDelContactMutation,
+// } = contactsApi;
 
-export const createUserApi = createApi({
-  reducerPath: "users",
-  baseQuery: axiosBaseQuery({
-    baseUrl: "https://connections-api.herokuapp.com",
-  }),
-  tagTypes: ["Contacts"],
-  endpoints: (builder) => ({
-    addUser: builder.mutation({
-      query: (value) => ({
-        url: "/users/signup",
-        method: "POST",
-        data: value,
-      }),
-      invalidatesTags: ["Contacts"],
-    }),
-  }),
-});
+// export const createUserApi = createApi({
+//   reducerPath: "users",
+//   baseQuery: axiosBaseQuery({
+//     baseUrl: "https://connections-api.herokuapp.com",
+//   }),
+//   tagTypes: ["Contacts"],
+//   endpoints: (builder) => ({
+//     addUser: builder.mutation({
+//       query: (value) => ({
+//         url: "/users/signup",
+//         method: "POST",
+//         data: value,
+//       }),
+//       invalidatesTags: ["Contacts"],
+//     }),
+// loginUser: builder.mutation({
+//   query: (value) => ({
+//     url: "/users/login",
+//     method: "POST",
+//     data: value,
+//   }),
+//   invalidatesTags: ["Contacts"],
+// }),
+//     getUser: builder.mutation({
+//       query: (value) => ({
+//         url: "/users/current",
+//         method: "GET",
+//         data: value,
+//       }),
+//       invalidatesTags: ["Contacts"],
+//     }),
+//   }),
+// });
 
-export const { useAddUserMutation } = createUserApi;
+// const api = axios.create({
+//   baseUrl: "https://connections-api.herokuapp.com",
+// });
+
+// export const login = (form) => api.post("/users/login", form);
+
+// export const loginUser = createAsyncThunk("login", async (form) => {
+//   const { data } = await login(form);
+//   return data
+// });
+
+// export const {
+//   useAddUserMutation,
+//   // useLoginUserMutation,
+//   //  useGetUserMutation
+// } = createUserApi;
