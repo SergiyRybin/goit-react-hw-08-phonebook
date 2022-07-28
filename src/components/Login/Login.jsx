@@ -4,11 +4,13 @@ import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { loginUserThunk } from "redux/auth";
 // import { useLoginUserMutation } from "redux/slice";
 
 export const Login = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -22,12 +24,12 @@ export const Login = () => {
   );
 
   const onSubmite = useCallback(
-    (e) => {
+   async (e) => {
       e.preventDefault();
-     dispatch(loginUserThunk(form))
-     
+     await dispatch(loginUserThunk(form));
+      navigate('/profile')
     },
-    [dispatch, form]
+    [dispatch, form, navigate]
   );
 
   return (
