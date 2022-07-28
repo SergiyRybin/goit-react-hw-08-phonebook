@@ -3,17 +3,30 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://connections-api.herokuapp.com";
 
+let store;
+
+export function setStore(appStore) {
+  store = appStore;
+}
+
+/////Axios rec
+
+axios.interceptors.request.use((config) => {
+  const acessToken = getToken(store.getState());
+
+  config.headers["Authorization"] = acessToken;
+  return config;
+});
+
 export const createUser = (form) => axios.post("/users/signup", form);
 export const loginUser = (form) => axios.post("/users/login", form);
-export const getProfile = (token) =>
-  axios.get("/users/current", {
-    headers: {
-      'Authorization': token,
-    },
-  });
-export const getToken = (state) => state.auth.token;
-export const getProfileState = (state)=> state.auth.profile
+export const getProfile = () => axios.get("/users/current");
+//// Selectors
 
+export const getToken = (state) => state.auth.token;
+export const getProfileState = (state) => state.auth.profile;
+export const getProfileLoading = (state)=> state.auth.isProfileLoading
+///Thunk
 export const createUserThunk = createAsyncThunk("signup", async (form) => {
   const { data } = await createUser(form);
   return data;
@@ -29,6 +42,8 @@ export const getProfileThunk = createAsyncThunk("profile", async (_, store) => {
   const { data } = await getProfile(token);
   return data;
 });
+
+////Slice auth
 
 const initialState = {
   isLoginLoading: false,
@@ -67,7 +82,5 @@ export const authSlice = createSlice({
       });
   },
 });
-
-// export const { filterContact } = authSlice.actions;
 
 export default authSlice.reducer;

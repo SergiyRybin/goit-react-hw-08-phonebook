@@ -4,7 +4,12 @@
   justify-content: center;
   list-style: none;
   text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 .NavBar li{
   margin-right: 20px;
+}
+.NavBar li:last-child{
+  margin-right: 0;
 }

@@ -32,8 +32,8 @@ export const Register = () => {
 
   return (
     <>
-      <Container>
-        <Form onSubmit={onSubmite} className={style.Form}>
+      <Container className="mx-auto">
+        <Form onSubmit={onSubmite} className="mx-auto">
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control

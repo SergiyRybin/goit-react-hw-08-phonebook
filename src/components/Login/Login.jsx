@@ -32,8 +32,8 @@ export const Login = () => {
 
   return (
     <>
-      <Container>
-        <Form onSubmit={onSubmite}>
+      <Container className="mx-auto">
+        <Form className="mx-auto" onSubmit={onSubmite}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
