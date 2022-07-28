@@ -31,11 +31,12 @@ export const store = configureStore({
   devTools: true,
   thunk: true,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
+   getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(contactsApi.middleware)
+  
 });
 
 export const persistor = persistStore(store);
