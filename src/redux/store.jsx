@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { mySlice } from "./slice";
+import { mySlice, contactsApi } from "./slice";
 import { authSlice } from "./auth";
 import storage from "redux-persist/lib/storage";
 import {
@@ -22,6 +22,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   filter: mySlice.reducer,
   auth: authSlice.reducer,
+  [contactsApi.reducerPath]: contactsApi.reducer,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

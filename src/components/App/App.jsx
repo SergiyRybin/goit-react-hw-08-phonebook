@@ -12,6 +12,7 @@ import { PrivateRoute } from "components/PrivateRoute/PrivateRoute";
 import { PublicRoute } from "components/PublicRoute/PublicRoute";
 import { isAutenticated } from "redux/auth";
 import { useSelector } from "react-redux";
+import { LogOut } from "components/LogOut/LogOut";
 
 const App = () => {
   const isAuth = useSelector(isAutenticated);
@@ -36,16 +37,22 @@ const App = () => {
   const privateLink = () => {
     return (
       <>
-        <li>
+        {/* <li>
           <NavLink style={{ textDecoration: "none" }} to="/contacts">
             Contacts
           </NavLink>
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <NavLink style={{ textDecoration: "none" }} to="/profile">
             Profile
           </NavLink>
+        </li> */}
+        <li>
+          <NavLink style={{ textDecoration: "none" }} to="/logout">
+            Logut
+          </NavLink>
         </li>
+        <li>Hello : <Profile/></li>
       </>
     );
   };
@@ -75,11 +82,12 @@ const App = () => {
           }
         />
         <Route path="/contacts" element={<MainForm />} />
+  
         <Route
-          path="/profile"
+          path="/logout"
           element={
             <PrivateRoute>
-              <Profile />
+              <LogOut />
             </PrivateRoute>
           }
         />

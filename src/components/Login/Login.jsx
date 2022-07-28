@@ -1,6 +1,4 @@
-import { useCallback } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Alert, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -13,17 +11,12 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuth = useSelector(isAutenticated);
-const error = useSelector(getLoginErrror)
+  const error = useSelector(getLoginErrror);
 
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-  useEffect(()=>{
-    if (isAuth) {
-      navigate("/profile");
-    }
-  },[isAuth, navigate])
 
   const onChange = useCallback(
     (e) => {
@@ -36,9 +29,9 @@ const error = useSelector(getLoginErrror)
     async (e) => {
       e.preventDefault();
       await dispatch(loginUserThunk(form));
-   
+      isAuth && navigate("/contacts");
     },
-    [dispatch, form]
+    [dispatch, form, isAuth, navigate]
   );
 
   return (

@@ -45,11 +45,8 @@ export const getProfileThunk = createAsyncThunk("profile", async (_, store) => {
   return data;
 });
 
-export const logOutThunk = createAsyncThunk("logout", async (_, store) => {
-  await logOut;
-  const token = getToken(store.getState());
-  const { data } = await getProfile(token);
-  return data;
+export const logOutThunk = createAsyncThunk("logout", async () => {
+  await logOut();
 });
 ////Slice auth
 
@@ -93,7 +90,10 @@ export const authSlice = createSlice({
       .addCase(getProfileThunk.rejected, (state) => {
         state.isProfileLoading = false;
       })
-      .addCase(logOutThunk.fulfilled, );
+      .addCase(logOutThunk.fulfilled, (state) => {
+        state.token = null;
+        state.loginError = null
+      });
   },
 });
 
