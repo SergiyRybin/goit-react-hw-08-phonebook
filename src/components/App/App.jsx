@@ -8,39 +8,81 @@ import { Container } from "react-bootstrap";
 import style from "../App/App.module.css";
 import { Register } from "../Register/Register";
 import MainForm from "components/MainForm/MainForm";
+import { PrivateRoute } from "components/PrivateRoute/PrivateRoute";
+import { PublicRoute } from "components/PublicRoute/PublicRoute";
+import { isAutenticated } from "redux/auth";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const isAuth = useSelector(isAutenticated);
+  const globalLink = () => {
+    return (
+      <>
+        <li>
+          <NavLink style={{ textDecoration: "none" }} to="/login">
+            Login
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink style={{ textDecoration: "none" }} to="/register">
+            Register
+          </NavLink>
+        </li>
+      </>
+    );
+  };
+
+  const privateLink = () => {
+    return (
+      <>
+        <li>
+          <NavLink style={{ textDecoration: "none" }} to="/contacts">
+            Contacts
+          </NavLink>
+        </li>
+        <li>
+          <NavLink style={{ textDecoration: "none" }} to="/profile">
+            Profile
+          </NavLink>
+        </li>
+      </>
+    );
+  };
+
   return (
     <>
       <Container className="mx-auto">
         <ul className={style.NavBar}>
-          <li>
-            <NavLink style={{ textDecoration: "none" }} to="/login">
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink style={{ textDecoration: "none" }} to="/contacts">
-              Contacts
-            </NavLink>
-          </li>
-          <li>
-            <NavLink style={{ textDecoration: "none" }} to="/register">
-              Register
-            </NavLink>
-          </li>
-          <li>
-            <NavLink style={{ textDecoration: "none" }} to="/profile">
-              Profile
-            </NavLink>
-          </li>
+          {isAuth ? privateLink() : globalLink()}
         </ul>
       </Container>
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
         <Route path="/contacts" element={<MainForm />} />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );

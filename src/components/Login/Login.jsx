@@ -1,20 +1,29 @@
 import { useCallback } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Alert, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUserThunk } from "redux/auth";
+import { getLoginErrror, isAutenticated, loginUserThunk } from "redux/auth";
 // import { useLoginUserMutation } from "redux/slice";
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const isAuth = useSelector(isAutenticated);
+const error = useSelector(getLoginErrror)
+
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+  useEffect(()=>{
+    if (isAuth) {
+      navigate("/profile");
+    }
+  },[isAuth, navigate])
 
   const onChange = useCallback(
     (e) => {
@@ -24,12 +33,12 @@ export const Login = () => {
   );
 
   const onSubmite = useCallback(
-   async (e) => {
+    async (e) => {
       e.preventDefault();
-     await dispatch(loginUserThunk(form));
-      navigate('/profile')
+      await dispatch(loginUserThunk(form));
+   
     },
-    [dispatch, form, navigate]
+    [dispatch, form]
   );
 
   return (
@@ -57,7 +66,7 @@ export const Login = () => {
               onChange={onChange}
             />
           </Form.Group>
-
+          {error && <Alert variant="danger">{error}</Alert>}
           <Button variant="primary" type="submit">
             Login
           </Button>

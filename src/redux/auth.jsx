@@ -13,7 +13,6 @@ export function setStore(appStore) {
 
 axios.interceptors.request.use((config) => {
   const acessToken = getToken(store.getState());
-
   config.headers["Authorization"] = acessToken;
   return config;
 });
@@ -21,11 +20,14 @@ axios.interceptors.request.use((config) => {
 export const createUser = (form) => axios.post("/users/signup", form);
 export const loginUser = (form) => axios.post("/users/login", form);
 export const getProfile = () => axios.get("/users/current");
+export const logOut = () => axios.post("/users/logout");
 //// Selectors
 
 export const getToken = (state) => state.auth.token;
 export const getProfileState = (state) => state.auth.profile;
-export const getProfileLoading = (state)=> state.auth.isProfileLoading
+export const getProfileLoading = (state) => state.auth.isProfileLoading;
+export const isAutenticated = (state) => !!getToken(state);
+export const getLoginErrror = (state) => state.auth.loginError;
 ///Thunk
 export const createUserThunk = createAsyncThunk("signup", async (form) => {
   const { data } = await createUser(form);
@@ -43,6 +45,12 @@ export const getProfileThunk = createAsyncThunk("profile", async (_, store) => {
   return data;
 });
 
+export const logOutThunk = createAsyncThunk("logout", async (_, store) => {
+  await logOut;
+  const token = getToken(store.getState());
+  const { data } = await getProfile(token);
+  return data;
+});
 ////Slice auth
 
 const initialState = {
@@ -50,6 +58,7 @@ const initialState = {
   isProfileLoading: false,
   token: null,
   profile: null,
+  loginError: null,
 };
 
 export const authSlice = createSlice({
@@ -66,8 +75,12 @@ export const authSlice = createSlice({
         state.isLoginLoading = false;
         state.error = null;
       })
-      .addCase(loginUserThunk.rejected, (state, { payload }) => {
+      .addCase(loginUserThunk.rejected, (state, action) => {
         state.isLoginLoading = false;
+        state.loginError =
+          action.error.message === "Request failed with status code 400"
+            ? "Invalide password or username"
+            : "Somethig go wrong";
       })
       .addCase(getProfileThunk.pending, (state) => {
         state.isProfileLoading = true;
@@ -77,9 +90,10 @@ export const authSlice = createSlice({
         state.isProfileLoading = false;
         state.error = null;
       })
-      .addCase(getProfileThunk.rejected, (state, { payload }) => {
+      .addCase(getProfileThunk.rejected, (state) => {
         state.isProfileLoading = false;
-      });
+      })
+      .addCase(logOutThunk.fulfilled, );
   },
 });
 
