@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { mySlice, contactsApi } from "./slice";
-import { authSlice } from "./auth";
+import { mySlice, contactsApi } from "./sliceContact";
+import { authSlice } from "./authSlice";
 import storage from "redux-persist/lib/storage";
 import {
   persistStore,

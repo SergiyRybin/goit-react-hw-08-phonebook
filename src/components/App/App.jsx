@@ -9,7 +9,7 @@ import { Profile } from "components/Profile/Profile";
 import { PublicRoute } from "components/PublicRoute/PublicRoute";
 import { Container, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { isAutenticated } from "redux/auth";
+import { isAutenticated } from "selectors/selectors";
 import { Register } from "../Register/Register";
 
 const App = () => {
@@ -17,17 +17,18 @@ const App = () => {
   const globalLink = () => {
     return (
       <>
-        <li>
-          <NavLink style={{ textDecoration: "none" }} to="/login">
-            Login
-          </NavLink>
-        </li>
+        <Navbar.Collapse className="justify-content-center">
+          <Navbar.Brand>
+            <NavLink style={{ textDecoration: "none" }} to="/login">
+              Login
+            </NavLink>
+            <NavLink style={{ textDecoration: "none", marginLeft: "10px" }} to="/register">
+              Register
+            </NavLink>
+          </Navbar.Brand>
+        </Navbar.Collapse>
 
-        <li>
-          <NavLink style={{ textDecoration: "none" }} to="/register">
-            Register
-          </NavLink>
-        </li>
+       
       </>
     );
   };
@@ -40,13 +41,14 @@ const App = () => {
             Signed in as: <Profile />
           </Navbar.Text>
           <Navbar.Brand>
-          <NavLink style={{ textDecoration: "none", marginLeft: "10px" }} to="/logout">
-            Logout
-          </NavLink>
-        </Navbar.Brand>
+            <NavLink
+              style={{ textDecoration: "none", marginLeft: "10px" }}
+              to="/logout"
+            >
+              Logout
+            </NavLink>
+          </Navbar.Brand>
         </Navbar.Collapse>
-      
-      
       </>
     );
   };
@@ -54,9 +56,7 @@ const App = () => {
   return (
     <>
       <Container className="mx-auto">
-        <Navbar>
-          {isAuth ? privateLink() : globalLink()}
-        </Navbar>
+        <Navbar>{isAuth ? privateLink() : globalLink()}</Navbar>
       </Container>
       <Routes>
         <Route

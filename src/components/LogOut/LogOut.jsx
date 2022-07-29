@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { logOutThunk } from "redux/auth";
+import { logOutThunk } from "requestAxios/request";
 
 export const LogOut = () => {
 const dispatch = useDispatch()

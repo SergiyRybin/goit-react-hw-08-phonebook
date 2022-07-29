@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { ListGroupItem } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import { useDelContactMutation } from "redux/slice";
+import { useDelContactMutation } from "redux/sliceContact";
 
 const ContactCard = ({ contact }) => {
   const [delContact] = useDelContactMutation();

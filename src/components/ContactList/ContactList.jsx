@@ -2,7 +2,7 @@ import ContactCard from "components/ContactCard/ContactCard";
 import React from "react";
 import { Container, ListGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useGetContactsQuery } from "redux/slice";
+import { useGetContactsQuery } from "redux/sliceContact";
 
 function ContactList() {
   const { data } = useGetContactsQuery();

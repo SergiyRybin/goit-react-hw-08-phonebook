@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
-import { createUserThunk } from "redux/auth";
+import { createUserThunk } from "requestAxios/request";
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -66,7 +66,7 @@ export const Register = () => {
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant="success" type="submit">
             Sign Up
           </Button>
         </Form>

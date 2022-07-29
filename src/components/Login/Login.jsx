@@ -4,7 +4,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getLoginErrror, isAutenticated, loginUserThunk } from "redux/auth";
+import { loginUserThunk } from "requestAxios/request";
+import { getLoginErrror, isAutenticated } from "selectors/selectors";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ export const Login = () => {
             />
           </Form.Group>
           {error && <Alert variant="danger">{error}</Alert>}
-          <Button variant="primary" type="submit">
+          <Button variant="success" type="submit">
             Login
           </Button>
         </Form>

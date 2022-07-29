@@ -7,7 +7,7 @@ import {
   useAddContactMutation,
   useGetContactsQuery,
   usePatchContactMutation
-} from "redux/slice";
+} from "redux/sliceContact";
 
 function ContactForm() {
   const [addContact] = useAddContactMutation();

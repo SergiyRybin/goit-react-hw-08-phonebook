@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { filterContact } from "redux/slice";
+import { filterContact } from "redux/sliceContact";
 
 const Filter = () => {
   const dispatch = useDispatch();
