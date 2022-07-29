@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes } from "react-router";
+import { Route, Routes, Navigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import { Login } from "../Login/Login";
 
@@ -91,7 +91,9 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
+     
     </>
   );
 };

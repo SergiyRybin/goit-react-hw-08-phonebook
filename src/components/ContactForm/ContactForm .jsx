@@ -1,5 +1,9 @@
 import { nanoid } from "nanoid";
-import { useAddContactMutation, useGetContactsQuery } from "redux/slice";
+import {
+  useAddContactMutation,
+  useGetContactsQuery,
+  usePatchContactMutation,
+} from "redux/slice";
 import { Alert, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -7,19 +11,40 @@ import { useState } from "react";
 
 function ContactForm() {
   const [addContact] = useAddContactMutation();
+  const [patchContact] = usePatchContactMutation();
   const [error, setError] = useState(false);
   const { data } = useGetContactsQuery();
+  const [name, setName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const { name, number } = e.currentTarget.elements;
-
     if (data) {
-      const nameAdd = data.map((el) => el.name);
-      if (nameAdd.find((el) => el.toLowerCase() === name.value.toLowerCase())) {
+      const contactInList = data
+        .map((el) => el)
+        .find(
+          (el) =>
+            el.name.toLowerCase() === name.value.toLowerCase() &&
+            el.number.toLowerCase() === number.value.toLowerCase()
+        );
+
+      const patchContactInList = data
+        .map((el) => el)
+        .find(
+          (el) =>
+            el.name.toLowerCase() === name.value.toLowerCase() &&
+            el.number.toLowerCase() !== number.value.toLowerCase()
+        );
+      if (patchContactInList) {
+        // console.log("додати контакт");
+        // console.log(patchContactInList);
+        patchContact( {id: patchContactInList.id ,number: number.value});
+        return;
+      }
+      if (contactInList) {
         setError(true);
-        // alert(`${name.value} is already in contacts`);
+        setName(name.value);
         e.currentTarget.reset();
         return;
       }
@@ -55,7 +80,7 @@ function ContactForm() {
             placeholder="Number"
           />
         </Form.Group>
-        {error && <Alert variant="danger">is already in contacts</Alert>}
+        {error && <Alert variant="danger">{name} is already in contacts</Alert>}
         <Button variant="primary" type="submit">
           Add contact
         </Button>
