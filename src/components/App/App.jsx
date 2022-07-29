@@ -1,7 +1,4 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Navigate, Route, Routes } from "react-router";
-import { NavLink } from "react-router-dom";
-import { Login } from "../Login/Login";
 import { LogOut } from "components/LogOut/LogOut";
 import MainForm from "components/MainForm/MainForm";
 import { PrivateRoute } from "components/PrivateRoute/PrivateRoute";
@@ -9,7 +6,10 @@ import { Profile } from "components/Profile/Profile";
 import { PublicRoute } from "components/PublicRoute/PublicRoute";
 import { Container, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { Navigate, Route, Routes } from "react-router";
+import { NavLink } from "react-router-dom";
 import { isAutenticated } from "selectors/selectors";
+import { Login } from "../Login/Login";
 import { Register } from "../Register/Register";
 
 const App = () => {
