@@ -1,5 +1,6 @@
 import ContactCard from "components/ContactCard/ContactCard";
 import React from "react";
+import { Container, ListGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useGetContactsQuery } from "redux/slice";
 
@@ -13,12 +14,16 @@ function ContactList() {
   );
 
   return (
-    <ul>
-      {response &&
-        response.map((contact, index) => (
-          <ContactCard contact={contact} key={index} />
-        ))}
-    </ul>
+    <Container>
+      <ListGroup 
+      as="ul"
+      className="mx-auto" style={{ width: "400px" }}>
+        {response &&
+          response.map((contact, index) => (
+            <ContactCard contact={contact} key={index} />
+          ))}
+      </ListGroup>
+    </Container>
   );
 }
 

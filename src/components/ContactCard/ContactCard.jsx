@@ -1,20 +1,28 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { ListGroupItem } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import { useDelContactMutation } from "redux/slice";
 
 const ContactCard = ({ contact }) => {
   const [delContact] = useDelContactMutation();
   return (
-    <li>
+    <ListGroupItem
+      action
+      as="li"
+      variant="success"
+      className="d-flex justify-content-between align-items-center"
+    >
       {contact.name}: {contact.number}
-      <button
+      <Button
+        className="ms-auto"
+        variant="success"
         type="submite"
-        className="delete"
         onClick={() => delContact(contact.id)}
       >
         Delete
-      </button>
-    </li>
+      </Button>
+    </ListGroupItem>
   );
 };
 

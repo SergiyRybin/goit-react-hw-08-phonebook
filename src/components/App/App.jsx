@@ -1,18 +1,16 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes, Navigate } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { NavLink } from "react-router-dom";
 import { Login } from "../Login/Login";
-
-import { Profile } from "components/Profile/Profile";
-import { Container } from "react-bootstrap";
-import style from "../App/App.module.css";
-import { Register } from "../Register/Register";
+import { LogOut } from "components/LogOut/LogOut";
 import MainForm from "components/MainForm/MainForm";
 import { PrivateRoute } from "components/PrivateRoute/PrivateRoute";
+import { Profile } from "components/Profile/Profile";
 import { PublicRoute } from "components/PublicRoute/PublicRoute";
-import { isAutenticated } from "redux/auth";
+import { Container, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { LogOut } from "components/LogOut/LogOut";
+import { isAutenticated } from "redux/auth";
+import { Register } from "../Register/Register";
 
 const App = () => {
   const isAuth = useSelector(isAutenticated);
@@ -37,22 +35,18 @@ const App = () => {
   const privateLink = () => {
     return (
       <>
-        {/* <li>
-          <NavLink style={{ textDecoration: "none" }} to="/contacts">
-            Contacts
+        <Navbar.Collapse className="justify-content-center">
+          <Navbar.Text>
+            Signed in as: <Profile />
+          </Navbar.Text>
+          <Navbar.Brand>
+          <NavLink style={{ textDecoration: "none", marginLeft: "10px" }} to="/logout">
+            Logout
           </NavLink>
-        </li> */}
-        {/* <li>
-          <NavLink style={{ textDecoration: "none" }} to="/profile">
-            Profile
-          </NavLink>
-        </li> */}
-        <li>
-          <NavLink style={{ textDecoration: "none" }} to="/logout">
-            Logut
-          </NavLink>
-        </li>
-        <li>Hello : <Profile/></li>
+        </Navbar.Brand>
+        </Navbar.Collapse>
+      
+      
       </>
     );
   };
@@ -60,9 +54,9 @@ const App = () => {
   return (
     <>
       <Container className="mx-auto">
-        <ul className={style.NavBar}>
+        <Navbar>
           {isAuth ? privateLink() : globalLink()}
-        </ul>
+        </Navbar>
       </Container>
       <Routes>
         <Route
@@ -82,7 +76,7 @@ const App = () => {
           }
         />
         <Route path="/contacts" element={<MainForm />} />
-  
+
         <Route
           path="/logout"
           element={
@@ -93,7 +87,6 @@ const App = () => {
         />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
-     
     </>
   );
 };

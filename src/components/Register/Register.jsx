@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import { createUserThunk } from "redux/auth";
-import style from "../Register/Register.module.css";
 
 export const Register = () => {
   const dispatch = useDispatch();

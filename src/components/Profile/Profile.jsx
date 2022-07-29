@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getProfileLoading,
   getProfileState,
-  getProfileThunk,
+  getProfileThunk
 } from "redux/auth";
 // import Card from "react-bootstrap/Card";
 // import { Container } from "react-bootstrap";

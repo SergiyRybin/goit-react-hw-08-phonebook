@@ -1,13 +1,13 @@
 import { nanoid } from "nanoid";
-import {
-  useAddContactMutation,
-  useGetContactsQuery,
-  usePatchContactMutation,
-} from "redux/slice";
+import { useState } from "react";
 import { Alert, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import {
+  useAddContactMutation,
+  useGetContactsQuery,
+  usePatchContactMutation
+} from "redux/slice";
 
 function ContactForm() {
   const [addContact] = useAddContactMutation();
@@ -37,9 +37,7 @@ function ContactForm() {
             el.number.toLowerCase() !== number.value.toLowerCase()
         );
       if (patchContactInList) {
-        // console.log("додати контакт");
-        // console.log(patchContactInList);
-        patchContact( {id: patchContactInList.id ,number: number.value});
+        patchContact({ id: patchContactInList.id, number: number.value });
         return;
       }
       if (contactInList) {
@@ -56,7 +54,8 @@ function ContactForm() {
 
   return (
     <Container className="mx-auto">
-      <Form className="mx-auto" onSubmit={handleSubmit}>
+      <Form className="mx-auto mb-3" onSubmit={handleSubmit} >
+      <h1 >Phonebook</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -81,7 +80,7 @@ function ContactForm() {
           />
         </Form.Group>
         {error && <Alert variant="danger">{name} is already in contacts</Alert>}
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
           Add contact
         </Button>
       </Form>
