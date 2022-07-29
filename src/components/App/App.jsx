@@ -22,13 +22,14 @@ const App = () => {
             <NavLink style={{ textDecoration: "none" }} to="/login">
               Login
             </NavLink>
-            <NavLink style={{ textDecoration: "none", marginLeft: "10px" }} to="/register">
+            <NavLink
+              style={{ textDecoration: "none", marginLeft: "10px" }}
+              to="/register"
+            >
               Register
             </NavLink>
           </Navbar.Brand>
         </Navbar.Collapse>
-
-       
       </>
     );
   };
@@ -75,7 +76,15 @@ const App = () => {
             </PublicRoute>
           }
         />
-        <Route path="/contacts" element={<MainForm />} />
+
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute>
+              <MainForm />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="/logout"
