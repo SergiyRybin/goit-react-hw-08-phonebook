@@ -13,7 +13,7 @@ const Filter = () => {
     <Container>
       <Form className="mx-auto mb-3" >
         <h1>Contacts</h1>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Find contacts by name</Form.Label>
           <Form.Control
             placeholder="Enter name"

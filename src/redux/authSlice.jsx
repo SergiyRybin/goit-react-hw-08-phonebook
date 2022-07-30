@@ -26,6 +26,7 @@ export const authSlice = createSlice({
         state.isLoginLoading = true;
       })
       .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
+        
         state.token = payload.token;
         state.isLoginLoading = false;
         state.error = null;

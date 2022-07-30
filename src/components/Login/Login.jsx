@@ -12,7 +12,6 @@ export const Login = () => {
   const navigate = useNavigate();
   const isAuth = useSelector(isAutenticated);
   const error = useSelector(getLoginErrror);
-
   const [form, setForm] = useState({
     email: "",
     password: "",
