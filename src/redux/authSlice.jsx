@@ -3,6 +3,7 @@ import {
   loginUserThunk,
   getProfileThunk,
   logOutThunk,
+  createUserThunk,
 } from "requestAxios/request";
 
 ////Slice auth
@@ -30,6 +31,7 @@ export const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
+        state.profile = null;
         state.isLoginLoading = false;
         state.loginError =
           action.error.message === "Request failed with status code 400"
@@ -50,6 +52,21 @@ export const authSlice = createSlice({
       .addCase(logOutThunk.fulfilled, (state) => {
         state.token = null;
         state.loginError = null;
+        state.profile = null;
+      })
+      .addCase(createUserThunk.pending, (state) => {
+        state.isCreateLoading = true;
+      })
+      .addCase(createUserThunk.rejected, (state, action) => {
+        state.isCreateLoading = false;
+        state.CreateError =
+          action.error.message === "Request failed with status code 400"
+            ? "Invalide password or username"
+            : "Somethig go wrong";
+      })
+      .addCase(createUserThunk.fulfilled, (state) => {
+        state.isCreateProfile = false;
+        state.CreateError = null
       });
   },
 });

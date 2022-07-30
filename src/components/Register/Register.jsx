@@ -1,19 +1,23 @@
 import { useCallback } from "react";
 import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Alert, Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { createUserThunk } from "requestAxios/request";
+import { getRegisterError } from "selectors/selectors";
 
 export const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const error = useSelector(getRegisterError);
+
   const [form, setForm] = useState({
     email: "",
     name: "",
     password: "",
   });
-
   const onChange = useCallback(
     (e) => {
       setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -24,9 +28,11 @@ export const Register = () => {
   const onSubmite = useCallback(
     (e) => {
       e.preventDefault();
+
       dispatch(createUserThunk(form));
+      !error && navigate("/login");
     },
-    [dispatch, form]
+    [dispatch, error, form, navigate]
   );
 
   return (
@@ -65,7 +71,7 @@ export const Register = () => {
               onChange={onChange}
             />
           </Form.Group>
-
+          {error && <Alert variant="danger">{error}</Alert>}
           <Button variant="success" type="submit">
             Sign Up
           </Button>

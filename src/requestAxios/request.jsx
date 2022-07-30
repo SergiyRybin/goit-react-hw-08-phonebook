@@ -24,6 +24,7 @@ export const logOut = () => axios.post("/users/logout");
 ///Thunk
 export const createUserThunk = createAsyncThunk("signup", async (form) => {
   const { data } = await createUser(form);
+
   return data;
 });
 
